@@ -2,6 +2,7 @@ const Utilisateur = require ('../Models/Utilisateur');
 
 
 class UtilisateurService {
+    
     async getAllUtilisateur() {
         return await Utilisateur.findAll();
     }
