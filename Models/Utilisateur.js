@@ -1,9 +1,12 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../Config/Sequelize");
+const bcrypt = require ('bcrypt');
 
 
 class Utilisateur extends Model {
-
+    async ValidatePassword(password){
+        return await bcrypt.compare(password, this.UT_Motdepasse);
+    }
 }
 
 Utilisateur.init({
@@ -40,7 +43,17 @@ Utilisateur.init({
     sequelize,
     modelName: 'Utilisateur',
     tableName: 'utilisateurs',
-    timestamps: false // pas besoin des champs `createdAt` et `updatedAt`
+    timestamps: false, // pas besoin des champs `createdAt` et `updatedAt`
+    hooks : {
+        beforeCreate : async (utilisateur) => {
+            utilisateur.UT_Motdepasse = await bcrypt.hash(utilisateur.UT_Motdepasse, 10);
+        },
+        beforeUpdate : async (utilisateur) => {
+            if (utilisateur.changed('UT_Motdepasse')) {
+                utilisateur.UT_Motdepasse = await bcrypt.hash(utilisateur.UT_Motdepasse, 10)
+            }
+        }
+    }
 });
 
 module.exports = Utilisateur;

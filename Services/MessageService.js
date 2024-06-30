@@ -14,6 +14,28 @@ class MessageService {
             }
         );
     }
+
+    async getMessageById(message) {
+        return await Message.findByPk(message)
+    }
+
+    async addMessage(message){
+        return await Message.create(message)
+    }
+
+    async removeMessage (messageID) {
+        return await Message.destroy({
+            where : {ME_ID : messageID}
+        })
+    }
+
+    async updateMessage(MessageID, message) {
+        return await Message.update(message , {
+            where : {ME_ID : MessageID},
+            individualHooks : true
+        })
+    }
+
 }
 
 module.exports = new MessageService();

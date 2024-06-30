@@ -11,10 +11,6 @@ class UtilisateurService {
         return await Utilisateur.findByPk(UtilisateurID)
     }
 
-    async addUtilisateur(utilisateur) {
-        return await Utilisateur.create(utilisateur);
-
-    }
 
     async removeUtilisateur (utilisateurID) {
         return await Utilisateur.destroy({

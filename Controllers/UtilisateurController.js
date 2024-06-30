@@ -24,15 +24,6 @@ class UtilisateurController {
         }
     }
 
-    async addUtilisateur (request, result) {
-        try {
-            const utilisateur = await UtilisateurService.addUtilisateur(request.body);
-            result.json(utilisateur);
-        } catch (error) {
-            result.status(500);
-            result.json({error : "Une erreur est survenue lors de l'ajout de l'utilisateur"})
-        }
-    }
 
     async removeUtilisateur(request, result) {
         try {

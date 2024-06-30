@@ -1,6 +1,6 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../Config/Sequelize");
-const Profile = require("./profile");
+
 
 class Message extends Model {
 
@@ -37,4 +37,4 @@ Message.init({
     timestamps: false // pas besoin des champs `createdAt` et `updatedAt`
 })
 
-module.exports = Profile;
+module.exports = Message;
