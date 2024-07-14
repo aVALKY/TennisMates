@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors')
 const app = express();
 
 const utilisateurRouter = require('./Routes/UtilisateurRoutes');
@@ -9,10 +10,10 @@ const AuthenticateController = require('./Controllers/AuthenticateController');
 
 
 app.use(express.json());
-
+app.use(cors());
 
 app.use('/authenticate', AuthenticateRoutes);
-app.use('/utilisateurs',  AuthenticateController.authenticateToken,  utilisateurRouter);
+app.use('/utilisateurs',  utilisateurRouter);
 app.use('/profiles',  AuthenticateController.authenticateToken,  profileRouter);
 app.use('/messages',  AuthenticateController.authenticateToken,  messageRouter)
 

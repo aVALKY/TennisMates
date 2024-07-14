@@ -6,7 +6,7 @@ class UtilisateurController {
 
     async getAllUtilisateur(request, result) {
         try {
-            const utilisateur = await UtilisateurService.getAllUtilisateur();
+            const utilisateur = await UtilisateurService.getAllUtilisateursAvecProfiles();
             result.json(utilisateur)
         } catch (error) {
             result.status(500);

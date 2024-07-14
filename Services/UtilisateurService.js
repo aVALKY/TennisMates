@@ -1,5 +1,6 @@
-const Utilisateur = require ('../Models/Utilisateur');
-
+const { QueryTypes } = require('sequelize');
+const Utilisateur = require('../Models/Utilisateur');
+const Profile = require('../Models/profile');
 
 class UtilisateurService {
     
@@ -8,21 +9,31 @@ class UtilisateurService {
     }
 
     async getUtilisateurById(UtilisateurID) {
-        return await Utilisateur.findByPk(UtilisateurID)
+        return await Utilisateur.findByPk(UtilisateurID);
     }
 
-
-    async removeUtilisateur (utilisateurID) {
+    async removeUtilisateur(utilisateurID) {
         return await Utilisateur.destroy({
-            where : {UT_ID : utilisateurID}
-        })
+            where: { UT_ID: utilisateurID }
+        });
     }
 
-    async updateUtilisateur (utilisateurID, utilisateur){
-        return await Utilisateur.update(utilisateur , {
-            where : {UT_ID : utilisateurID},
-            individualHooks : true
-        })
+    async updateUtilisateur(utilisateurID, utilisateur) {
+        return await Utilisateur.update(utilisateur, {
+            where: { UT_ID: utilisateurID },
+            individualHooks: true
+        });
+    }
+
+    async getAllUtilisateursAvecProfiles() {
+        try {
+            const utilisateurs = await Utilisateur.findAll({
+                include: ['Profile'],
+            });
+            return utilisateurs;
+        } catch (error) {
+            throw error;
+        }
     }
 }
 

@@ -11,7 +11,7 @@ class AuthenticateService {
     async login (email, password){
         const utilisateur = await Utilisateur.findOne({where : {UT_Email : email}})
         if (!utilisateur || !await utilisateur.ValidatePassword(password)){
-            throw new Error("Email ou motdepasse n'est pas correct")
+            throw new Error("Mot de passe ou email incorrect")
         }
         return this.generateToken(utilisateur);
     }

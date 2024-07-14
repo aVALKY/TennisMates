@@ -1,10 +1,10 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../Config/Sequelize");
-const bcrypt = require ('bcrypt');
-
+const bcrypt = require('bcrypt');
+const Profile = require("./profile");
 
 class Utilisateur extends Model {
-    async ValidatePassword(password){
+    async ValidatePassword(password) {
         return await bcrypt.compare(password, this.UT_Motdepasse);
     }
 }
@@ -43,17 +43,20 @@ Utilisateur.init({
     sequelize,
     modelName: 'Utilisateur',
     tableName: 'utilisateurs',
-    timestamps: false, // pas besoin des champs `createdAt` et `updatedAt`
-    hooks : {
-        beforeCreate : async (utilisateur) => {
+    timestamps: false,
+    hooks: {
+        beforeCreate: async (utilisateur) => {
             utilisateur.UT_Motdepasse = await bcrypt.hash(utilisateur.UT_Motdepasse, 10);
         },
-        beforeUpdate : async (utilisateur) => {
+        beforeUpdate: async (utilisateur) => {
             if (utilisateur.changed('UT_Motdepasse')) {
-                utilisateur.UT_Motdepasse = await bcrypt.hash(utilisateur.UT_Motdepasse, 10)
+                utilisateur.UT_Motdepasse = await bcrypt.hash(utilisateur.UT_Motdepasse, 10);
             }
         }
     }
 });
+
+Utilisateur.belongsTo(Profile,{as:'Profile', foreignKey: "UT_ID"})
+Profile.belongsTo(Utilisateur,{as:'Utilisateur', foreignKey: "UT_ID"})
 
 module.exports = Utilisateur;

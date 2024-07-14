@@ -8,7 +8,7 @@ class AuthenticateController{
     async register (request, result){
         try {
             const utilisateur = await AuthenticateService.register(request.body);
-            result.json({utilisateur : utilisateur, message : "Inscription Succès"})
+            result.json({utilisateur : utilisateur, message : "Inscription réussie !"})
         } catch (error) {
             result.status(500)
             result.json({error : "Une erreur est survenu lors de l'inscription"})
@@ -17,12 +17,12 @@ class AuthenticateController{
 
     async login (request, result) {
         try {
-            const {email, password} = request.body;
-            const token = await AuthenticateService.login(email, password);
+            const {UT_Email, UT_Motdepasse} = request.body;
+            const token = await AuthenticateService.login(UT_Email, UT_Motdepasse);
             result.json({token : token}) 
         } catch (error) {
-            result.status(401) // non autorisé 
-            result.json({error : "Mot de passe ou email inccorect"})
+            result.status(401)
+            result.json({error : "Mot de passe ou email incorrect"})
         }
     }
 
@@ -31,7 +31,7 @@ class AuthenticateController{
         const token = authHeader && authHeader.split(' ')[1];
 
         if(!token){
-            result.status(401) // non autorisé
+            result.status(401)
             return result.json({error : "Vous n'avez pas accès à cette route"})
         }
 
@@ -44,6 +44,7 @@ class AuthenticateController{
             next();
         })
     }
+
 }
 
 module.exports = new AuthenticateController();
