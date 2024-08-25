@@ -6,7 +6,7 @@ class UtilisateurController {
 
     async getAllUtilisateur(request, result) {
         try {
-            const utilisateur = await UtilisateurService.getAllUtilisateursAvecProfiles();
+            const utilisateur = await UtilisateurService.getAllUtilisateur();
             result.json(utilisateur)
         } catch (error) {
             result.status(500);
@@ -43,6 +43,16 @@ class UtilisateurController {
             result.status(500);
             result.json({error : "Une erreur est survenue lors de la modification de l'utilisateur"})
         }
+    }
+
+    async getAllUtilisateursAvecProfiles(request, result) {
+        try {
+            const utilisateurs = await UtilisateurService.getAllUtilisateursAvecProfiles()
+            result.json(utilisateurs)
+        } catch (error) {
+            result.status(500);
+            result.json({error : "Une erreur est surevenue lors de la récupération des utilisateurs"});
+        } 
     }
     
 }

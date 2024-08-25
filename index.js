@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/authenticate', AuthenticateRoutes);
-app.use('/utilisateurs',  utilisateurRouter);
+app.use('/utilisateurs', AuthenticateController.authenticateToken, utilisateurRouter);
 app.use('/profiles',  AuthenticateController.authenticateToken,  profileRouter);
 app.use('/messages',  AuthenticateController.authenticateToken,  messageRouter)
 

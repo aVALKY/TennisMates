@@ -8,8 +8,13 @@ class UtilisateurService {
         return await Utilisateur.findAll();
     }
 
-    async getUtilisateurById(UtilisateurID) {
-        return await Utilisateur.findByPk(UtilisateurID);
+    async getUtilisateurById(utilisateurID) {
+        return await Utilisateur.findByPk(utilisateurID, {
+            include: {
+                model: Profile,
+                as: 'profile'
+            }
+        });
     }
 
     async removeUtilisateur(utilisateurID) {
@@ -26,14 +31,8 @@ class UtilisateurService {
     }
 
     async getAllUtilisateursAvecProfiles() {
-        try {
-            const utilisateurs = await Utilisateur.findAll({
-                include: ['Profile'],
-            });
-            return utilisateurs;
-        } catch (error) {
-            throw error;
-        }
+        const users = await Utilisateur.findAll({include: "profile"})
+        return users
     }
 }
 

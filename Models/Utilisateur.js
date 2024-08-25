@@ -3,6 +3,7 @@ const sequelize = require("../Config/Sequelize");
 const bcrypt = require('bcrypt');
 const Profile = require("./profile");
 
+
 class Utilisateur extends Model {
     async ValidatePassword(password) {
         return await bcrypt.compare(password, this.UT_Motdepasse);
@@ -56,7 +57,8 @@ Utilisateur.init({
     }
 });
 
-Utilisateur.belongsTo(Profile,{as:'Profile', foreignKey: "UT_ID"})
-Profile.belongsTo(Utilisateur,{as:'Utilisateur', foreignKey: "UT_ID"})
+Utilisateur.hasOne(Profile, { as : "profile", foreignKey : "UT_ID"})
+Profile.belongsTo(Utilisateur, {as : "utilisateur", foreignKey : 'UT_ID'})
+
 
 module.exports = Utilisateur;

@@ -1,4 +1,3 @@
-const profileService = require('../Services/profileService');
 const ProfileService = require ('../Services/profileService');
 
 class ProfileController{
@@ -36,15 +35,13 @@ class ProfileController{
     async updateProfile (request, result) {
         try {
             const profile = await ProfileService.updateProfile(request.params.id, request.body);
-            result.json (profile);
+            result.json(profile);
         } catch (error) {
             result.status(500);
-            result.json({error : "Une erreur est survenue lors de la modification du profile"})
+            result.json({ error: "Une erreur est survenue lors de la modification du profile" });
         }
-    }
+    }    
 
 }
 
 module.exports = new ProfileController();
-
-

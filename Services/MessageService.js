@@ -1,8 +1,6 @@
 const { QueryTypes } = require('sequelize');
 const Message = require ('../Models/Message');
 
-
-
 class MessageService {
 
 
@@ -21,19 +19,6 @@ class MessageService {
 
     async addMessage(message){
         return await Message.create(message)
-    }
-
-    async removeMessage (messageID) {
-        return await Message.destroy({
-            where : {ME_ID : messageID}
-        })
-    }
-
-    async updateMessage(MessageID, message) {
-        return await Message.update(message , {
-            where : {ME_ID : MessageID},
-            individualHooks : true
-        })
     }
 
 }

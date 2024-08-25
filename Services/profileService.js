@@ -19,7 +19,6 @@ class ProfileService {
     async updateProfile (profileID, profile){
         return await Profile.update(profile, {
             where : {PR_ID : profileID},
-            individualHooks : true
         })
     }
 }
