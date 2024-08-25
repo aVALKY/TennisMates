@@ -57,8 +57,8 @@ Utilisateur.init({
     }
 });
 
-Utilisateur.hasOne(Profile, { as : "profile", foreignKey : "UT_ID"})
-Profile.belongsTo(Utilisateur, {as : "utilisateur", foreignKey : 'UT_ID'})
+Utilisateur.hasOne(Profile, { as: 'profile', foreignKey: 'UT_ID', onDelete: 'CASCADE' });
+Profile.belongsTo(Utilisateur, { as: 'utilisateur', foreignKey: 'UT_ID', onDelete: 'CASCADE' });
 
 
 module.exports = Utilisateur;

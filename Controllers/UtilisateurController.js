@@ -28,10 +28,10 @@ class UtilisateurController {
     async removeUtilisateur(request, result) {
         try {
             await UtilisateurService.removeUtilisateur(request.params.id);
-            result.json({message : "L'utilisateur a bien été supprimé"})
+            result.json({ message: "L'utilisateur et son profil ont bien été supprimés" });
         } catch (error) {
             result.status(500);
-            result.json({error : "Une erreur est survenue lors de la supression de l'utilisateur"})
+            result.json({ error: "Une erreur est survenue lors de la suppression de l'utilisateur" });
         }
     }
 
