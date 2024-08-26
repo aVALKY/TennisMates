@@ -21,7 +21,7 @@ class AuthenticateController {
 
             const utilisateur = await Utilisateur.findOne({ 
                 where: { UT_Email },
-                attributes: ['UT_ID', 'UT_Prenom', 'UT_Nom', 'UT_Email', 'UT_Motdepasse'] // Inclut UT_Motdepasse pour la validation
+                attributes: ['UT_ID', 'UT_Prenom', 'UT_Nom', 'UT_Email', 'UT_Motdepasse']
             });
 
             if (!utilisateur) {
